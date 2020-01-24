@@ -9,8 +9,6 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -52,6 +50,9 @@ public DifferentialDrive getDrive() {
   return drive;
 }
 
+public void arcadeDrive(double fwd, double rot) {
+  drive.arcadeDrive(fwd, rot);
+}
 
   @Override
   public void periodic() {
