@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -22,8 +23,17 @@ public class Drivetrain extends SubsystemBase {
   private WPI_TalonSRX slaveLeft;
   private WPI_TalonSRX slaveRight;
 
+
+
+
+
+
   
   private DifferentialDrive drive; 
+
+
+
+
 
   
 
@@ -50,8 +60,8 @@ public DifferentialDrive getDrive() {
   return drive;
 }
 
-public void arcadeDrive(double fwd, double rot) {
-  drive.arcadeDrive(fwd, rot);
+public void teleop_Drive(double fwd, double turn) {
+  drive.arcadeDrive(fwd, turn);
 }
 
   @Override
@@ -60,3 +70,8 @@ public void arcadeDrive(double fwd, double rot) {
   }
 
 }
+
+
+
+
+

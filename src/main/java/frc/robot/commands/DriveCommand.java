@@ -9,44 +9,37 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Drivetrain;
 
-public class Shoot extends CommandBase {
-   /**
-   * Creates a new Shoot.
+public class DriveCommand extends CommandBase {
+  /**
+   * Creates a new DriveCommand.
+   * 
+   * 
    */
-  private Joystick ppStick; 
-  private double slider; 
-  private double shooterSpeed; 
-  
 
-  
-  Shooter shooterSubsystem;
-  public Shoot() {
-    // Use addRequirements() here to declare subsystem dependencies.
-    shooterSubsystem = new Shooter();
-    addRequirements(shooterSubsystem);
+
+   private final Drivetrain m_Drivetrain;
+   private final Joystick m_driverController;
+
+  public DriveCommand(Drivetrain driveTrain, Joystick driverController) {
+    // Use addRequirements() here to declare s
+    m_Drivetrain = driveTrain;
+    m_driverController = driverController;
+
+    addRequirements(m_Drivetrain);
+
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-  ppStick = new Joystick(0);
-  slider = -ppStick.getRawAxis(3);
-
-
-
-
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSpeed = (slider + 1) / 2;
-    shooterSubsystem.setShooterSpeed(shooterSpeed);
-
+    m_Drivetrain.teleop_Drive(m_driverController.getRawAxis(1), m_driverController.getRawAxis(2));
   }
 
   // Called once the command ends or is interrupted.

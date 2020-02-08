@@ -8,13 +8,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj2.command.RunCommand;
+import frc.robot.commands.DriveCommand;
 import frc.robot.subsystems.Drivetrain;
 
 
 public class RobotContainer {
   // Subsystems
   private final Drivetrain driveSubsystem = new Drivetrain();
+  private final Joystick m_driver_controller = new Joystick(0);
+  private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, m_driver_controller);
+
+  
 
   // Joysticks
   Joystick driveStick = new Joystick(1);
@@ -24,12 +28,7 @@ public class RobotContainer {
     configureButtonBindings();
 
 
-    driveSubsystem.setDefaultCommand(
-        // A split-stick arcade command, with forward/backward controlled by the left
-        // hand, and turning controlled by the right.
-        new RunCommand(() -> driveSubsystem
-            .arcadeDrive(driveStick.getRawAxis(1),
-                         driveStick.getRawAxis(3))));
+    driveSubsystem.setDefaultCommand(driveCommand);
   }
 
   
