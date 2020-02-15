@@ -7,48 +7,30 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Shooter;
+import frc.robot.subsystems.Intake;
 
-public class Shoot extends CommandBase {
-   /**
-   * Creates a new Shoot.
+public class intakeIn extends CommandBase {
+  /**
+   * Creates a new intakeIn.
    */
-  private Joystick ppStick; 
-  private double slider; 
-  private double shooterSpeed; 
-  
 
-  
-  Shooter m_shooterSubsystem;
-  public Shoot(Shooter shooterSubsystem, Joystick shooterStick) {
+  private final Intake m_intakeSubsystem;
 
-    m_shooterSubsystem = shooterSubsystem;
-    ppStick = shooterStick;
-
-    addRequirements(m_shooterSubsystem);
+  public intakeIn(Intake intakeSubsystem) {
+    m_intakeSubsystem = intakeSubsystem;
+    addRequirements(m_intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    
-  ppStick = new Joystick(0);
-  slider = -ppStick.getRawAxis(3);
-
-
-
-
-
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSpeed = (slider + 1) / 2;
-    m_shooterSubsystem.setShooterSpeed(shooterSpeed);
-
+    m_intakeSubsystem.runIntake(.5);
   }
 
   // Called once the command ends or is interrupted.

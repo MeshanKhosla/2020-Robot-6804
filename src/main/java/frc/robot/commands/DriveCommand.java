@@ -20,12 +20,15 @@ public class DriveCommand extends CommandBase {
 
 
    private final Drivetrain m_Drivetrain;
-   private final Joystick m_driverController;
+   private final Joystick ppStickOne;
+   private final Joystick ppStickTwo;
 
-  public DriveCommand(Drivetrain driveTrain, Joystick driverController) {
+
+  public DriveCommand(Drivetrain driveTrain, Joystick driverControllerOne, Joystick driverControllerTwo) {
     // Use addRequirements() here to declare s
     m_Drivetrain = driveTrain;
-    m_driverController = driverController;
+    ppStickOne = driverControllerOne;
+    ppStickTwo = driverControllerTwo;
 
     addRequirements(m_Drivetrain);
 
@@ -39,7 +42,7 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Drivetrain.teleop_Drive(m_driverController.getRawAxis(1), m_driverController.getRawAxis(2));
+    m_Drivetrain.teleop_Drive(ppStickOne.getRawAxis(1), ppStickTwo.getRawAxis(0));
   }
 
   // Called once the command ends or is interrupted.

@@ -8,33 +8,51 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
+import frc.robot.commands.Shoot;
+import frc.robot.commands.intakeIn;
+import frc.robot.commands.intakeStop;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Shooter;
 
 
 public class RobotContainer {
   // Subsystems
   private final Drivetrain driveSubsystem = new Drivetrain();
-  private final Joystick m_driver_controller = new Joystick(0);
-  private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, m_driver_controller);
-
-  
+  private final Intake intakeSubsystem = new Intake();
+  private final Shooter shooterSubsystem = new Shooter();
 
   // Joysticks
-  Joystick driveStick = new Joystick(1);
+  private final Joystick upDownController = new Joystick(1);
+  private final Joystick turnController = new Joystick(2);
+
+
+  // upDownController controls forward and backwards movement on the robot (parameter 1 on arcade drive)
+  // sideController controls turning (parameter 2 on arcade drive)
+  private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, upDownController, turnController);
+  private final Shoot shootCommand = new Shoot(shooterSubsystem, upDownController);
+
   
   public RobotContainer() {
     // Configure the button bindings
     configureButtonBindings();
 
 
-    driveSubsystem.setDefaultCommand(driveCommand);
+    
   }
 
+  // Joystick buttons
+  private final JoystickButton intakeInButton = new JoystickButton(upDownController, 3);
+  private final JoystickButton intakeStopButton = new JoystickButton(upDownController, 2);
   
-  private void configureButtonBindings() {
 
-    
+  private void configureButtonBindings() {
+    driveSubsystem.setDefaultCommand(driveCommand);
+    shooterSubsystem.setDefaultCommand(shootCommand);
+    intakeInButton.whenHeld(new intakeIn(intakeSubsystem));
+    intakeStopButton.whenPressed(new intakeStop(intakeSubsystem));
   }
 
 
