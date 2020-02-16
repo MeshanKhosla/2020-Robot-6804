@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems;
 
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
@@ -16,12 +16,12 @@ public class Intake extends SubsystemBase {
    * Creates a new Intake.
    */
 
-  private WPI_TalonSRX intakeMotor;
+  private WPI_VictorSPX intakeMotor;
   public Intake() {
-    intakeMotor = new WPI_TalonSRX(0);
+    intakeMotor = new WPI_VictorSPX(7);
   }
 
-  public WPI_TalonSRX getIntakeMotor() {
+  public WPI_VictorSPX getIntakeMotor() {
     return intakeMotor;
   }
 
@@ -35,4 +35,7 @@ public class Intake extends SubsystemBase {
   public void periodic() {
     // This method will be called once per scheduler run
   }
+
+public void publishToSmartDashboard() {
+}
 }

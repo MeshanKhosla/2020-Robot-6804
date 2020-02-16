@@ -22,6 +22,8 @@ public class DriveCommand extends CommandBase {
    private final Drivetrain m_Drivetrain;
    private final Joystick ppStickOne;
    private final Joystick ppStickTwo;
+   
+   private double forwardSpeed;
 
 
   public DriveCommand(Drivetrain driveTrain, Joystick driverControllerOne, Joystick driverControllerTwo) {
@@ -31,6 +33,7 @@ public class DriveCommand extends CommandBase {
     ppStickTwo = driverControllerTwo;
 
     addRequirements(m_Drivetrain);
+    
 
   }
 
@@ -42,7 +45,13 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_Drivetrain.teleop_Drive(ppStickOne.getRawAxis(1), ppStickTwo.getRawAxis(0));
+    
+    if(Math.abs(-ppStickOne.getRawAxis(1)) > .05) {
+      forwardSpeed = -ppStickOne.getRawAxis(1);
+    }
+
+    m_Drivetrain.teleop_Drive(forwardSpeed, ppStickOne.getRawAxis(2));
+
   }
 
   // Called once the command ends or is interrupted.

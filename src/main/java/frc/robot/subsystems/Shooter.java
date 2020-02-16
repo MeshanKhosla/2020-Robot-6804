@@ -24,17 +24,17 @@ public class Shooter extends SubsystemBase {
    *
    */ 
   
-  private WPI_VictorSPX leftFlyWheel;
-  private WPI_VictorSPX rightFlyWheel;
+  private WPI_TalonSRX leftFlyWheel;
+  private WPI_TalonSRX rightFlyWheel;
 
   //  Speedcontrollers
  
 
     public Shooter() {
       // Right flywheel
-      rightFlyWheel = new WPI_VictorSPX(1);
-      leftFlyWheel = new WPI_VictorSPX(2); 
-
+      //rightFlyWheel = new WPI_VictorSPX(7);
+      leftFlyWheel = new WPI_TalonSRX(3); 
+      rightFlyWheel = new WPI_TalonSRX(0);
 
 
     // Left flywheel (Inverted)
@@ -48,14 +48,14 @@ public class Shooter extends SubsystemBase {
   
     // Getters
     // Returns right flywheel
-    public WPI_VictorSPX getRightFlywheel() {
+    public WPI_TalonSRX getRightFlywheel() {
       return rightFlyWheel;
     }
   
   
   
     // Returns left flywheel
-    public WPI_VictorSPX getLeftFlywheel(){
+    public WPI_TalonSRX getLeftFlywheel(){
       return leftFlyWheel;
     }
      
@@ -69,6 +69,9 @@ public class Shooter extends SubsystemBase {
     public void periodic() {
       // This method will be called once per scheduler run
     }
+
+	public void publishToSmartDashboard() {
+	}
     
   }
 
