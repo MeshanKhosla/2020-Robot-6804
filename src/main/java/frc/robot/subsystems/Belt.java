@@ -11,21 +11,22 @@ import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
-public class Indexer extends SubsystemBase {
+public class Belt extends SubsystemBase {
   /**
-   * Creates a new Indexer.
+   * Creates a new Belt.
    */
 
-   private WPI_VictorSPX beltMotor;
-  public Indexer() {
+  private WPI_VictorSPX beltMotor;
+  public Belt() {
     beltMotor = new WPI_VictorSPX(6);
   }
 
-  public void runAngledBelt(double speed) {
+
+  public void runBelt(double speed) {
     beltMotor.set(speed);
   }
 
-  public WPI_VictorSPX getbeltMotor() {
+  public WPI_VictorSPX getBeltMotor() {
     return beltMotor;
   }
 

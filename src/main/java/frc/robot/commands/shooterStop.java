@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
@@ -15,17 +14,13 @@ public class shooterStop extends CommandBase {
    /**
    * Creates a new Shoot.
    */
-  private Joystick ppStick; 
-  private double slider; 
-  private double shooterSpeed; 
   
 
   
   Shooter m_shooterSubsystem;
-  public shooterStop(Shooter shooterSubsystem, Joystick shooterStick) {
+  public shooterStop(Shooter shooterSubsystem) {
 
     m_shooterSubsystem = shooterSubsystem;
-    ppStick = shooterStick;
 
     addRequirements(m_shooterSubsystem);
   }
@@ -44,7 +39,6 @@ public class shooterStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSpeed = (slider + 1) / 2;
     m_shooterSubsystem.setShooterSpeed(0);
 
   }

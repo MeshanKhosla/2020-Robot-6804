@@ -21,17 +21,14 @@ public class DriveCommand extends CommandBase {
 
    private final Drivetrain m_Drivetrain;
    private final Joystick ppStickOne;
-   private final Joystick ppStickTwo;
    
    private double forwardSpeed;
 
 
-  public DriveCommand(Drivetrain driveTrain, Joystick driverControllerOne, Joystick driverControllerTwo) {
+  public DriveCommand(Drivetrain driveTrain, Joystick driverControllerOne) {
     // Use addRequirements() here to declare s
     m_Drivetrain = driveTrain;
     ppStickOne = driverControllerOne;
-    ppStickTwo = driverControllerTwo;
-
     addRequirements(m_Drivetrain);
     
 

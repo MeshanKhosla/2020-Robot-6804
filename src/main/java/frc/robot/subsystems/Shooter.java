@@ -8,10 +8,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
-
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 
@@ -31,13 +27,9 @@ public class Shooter extends SubsystemBase {
  
 
     public Shooter() {
-      // Right flywheel
-      //rightFlyWheel = new WPI_VictorSPX(7);
+      //  flywheels
       leftFlyWheel = new WPI_TalonSRX(3); 
       rightFlyWheel = new WPI_TalonSRX(0);
-
-
-    // Left flywheel (Inverted)
     
     rightFlyWheel.setInverted(false);
     leftFlyWheel.setInverted(true);
@@ -70,8 +62,6 @@ public class Shooter extends SubsystemBase {
       // This method will be called once per scheduler run
     }
 
-	public void publishToSmartDashboard() {
-	}
     
   }
 

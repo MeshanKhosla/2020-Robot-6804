@@ -7,7 +7,6 @@
 
 package frc.robot.commands;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Shooter;
 
@@ -15,17 +14,13 @@ public class Shoot extends CommandBase {
    /**
    * Creates a new Shoot.
    */
-  private Joystick ppStick; 
-  private double slider; 
-  private double shooterSpeed; 
   
 
   
   Shooter m_shooterSubsystem;
-  public Shoot(Shooter shooterSubsystem, Joystick shooterStick) {
+  public Shoot(Shooter shooterSubsystem) {
 
     m_shooterSubsystem = shooterSubsystem;
-    ppStick = shooterStick;
 
     addRequirements(m_shooterSubsystem);
   }
@@ -34,9 +29,6 @@ public class Shoot extends CommandBase {
   @Override
   public void initialize() {
     
-  ppStick = new Joystick(0);
-  slider = -ppStick.getRawAxis(3);
-
 
 
 
@@ -46,7 +38,6 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    shooterSpeed = (slider + 1) / 2;
     m_shooterSubsystem.setShooterSpeed(.75);
 
   }

@@ -8,20 +8,17 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Shoot;
-import frc.robot.commands.beltDown;
-import frc.robot.commands.beltStop;
-import frc.robot.commands.beltUp;
 import frc.robot.commands.intakeIn;
 import frc.robot.commands.intakeStop;
+import frc.robot.commands.runBeltDown;
+import frc.robot.commands.runBeltUp;
 import frc.robot.commands.shooterStop;
+import frc.robot.commands.stopBelt;
+import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Indexer;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Shooter;
 
@@ -31,25 +28,18 @@ public class RobotContainer {
   private final Drivetrain driveSubsystem = new Drivetrain();
   private final Intake intakeSubsystem = new Intake();
   private final Shooter shooterSubsystem = new Shooter();
-  private final Indexer indexerSubsystem = new Indexer();
-
+  private final Belt beltSubsystem = new Belt();
   // Joysticks
   private final Joystick upDownController = new Joystick(1);
-  private final Joystick turnController = new Joystick(2);
 
-
-  // upDownController controls forward and backwards movement on the robot (parameter 1 on arcade drive)
-  // sideController controls turning (parameter 2 on arcade drive)
-  private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, upDownController, turnController);
-  private final Shoot shootCommand = new Shoot(shooterSubsystem, upDownController);
-  private final shooterStop stopShooterCommand = new shooterStop(shooterSubsystem, upDownController);
+// Drive command
+  private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, upDownController);
+  
 
 
   //sendable choooser 
   //sends options to either smartdashboard/shuffleboard for autonomous commands 
 
-  Command autonomousCommand; 
-  SendableChooser<Command> chooser; 
 
   
   
@@ -63,11 +53,11 @@ public class RobotContainer {
     configureButtonBindings();  
 
     //sendable chooser
-    chooser = new SendableChooser<Command>();
-    chooser.setDefaultOption("Stop Shooter", stopShooterCommand);
-    chooser.addOption("Shoot", shootCommand );
+    // chooser = new SendableChooser<Command>();
+    // chooser.setDefaultOption("Stop Shooter", stopShooterCommand);
+    // chooser.addOption("Shoot", shootCommand );
     
-    SmartDashboard.putData("Autonomous Chooser", chooser);
+    // SmartDashboard.putData("Autonomous Chooser", chooser);
 
 
 
@@ -75,11 +65,11 @@ public class RobotContainer {
 
 
 
-  public void publishToSmartDashboard(){
-    intakeSubsystem.publishToSmartDashboard();
-    shooterSubsystem.publishToSmartDashboard();
+  // public void publishToSmartDashboard(){
+  //   intakeSubsystem.publishToSmartDashboard();
+  //   shooterSubsystem.publishToSmartDashboard();
     
-  }
+  // }
 
 
 
@@ -88,9 +78,11 @@ public class RobotContainer {
   private final JoystickButton intakeStopButton = new JoystickButton(upDownController, 2);
   private final JoystickButton shooterRunButton = new JoystickButton(upDownController, 14);
   private final JoystickButton shooterStopButton = new JoystickButton(upDownController, 15);
-  private final JoystickButton angledBeltUpButton = new JoystickButton(upDownController, 8);
-  private final JoystickButton angledBeltDownButton = new JoystickButton(upDownController, 9);
-  private final JoystickButton angledBeltStopButton = new JoystickButton(upDownController, 10);
+  private final JoystickButton beltUpButton = new JoystickButton(upDownController, 8);
+  private final JoystickButton beltDownButton = new JoystickButton(upDownController, 9);
+  private final JoystickButton beltStopButton = new JoystickButton(upDownController, 10);
+
+  
 
   
 
@@ -104,13 +96,13 @@ public class RobotContainer {
     
 
     // Shooter
-    shooterRunButton.whenHeld(new Shoot(shooterSubsystem, upDownController));
-    shooterStopButton.whenPressed(new shooterStop(shooterSubsystem, upDownController));
+    shooterRunButton.whenHeld(new Shoot(shooterSubsystem));
+    shooterStopButton.whenPressed(new shooterStop(shooterSubsystem));
 
-    // Indexer
-    angledBeltUpButton.whenHeld(new beltUp(indexerSubsystem));
-    angledBeltStopButton.whenPressed(new beltStop(indexerSubsystem));
-    angledBeltDownButton.whenHeld(new beltDown(indexerSubsystem));
+    // Belt 
+    beltUpButton.whenHeld(new runBeltUp(beltSubsystem));
+    beltDownButton.whenHeld(new runBeltDown(beltSubsystem));
+    beltStopButton.whenPressed(new stopBelt(beltSubsystem));
   }
 
 

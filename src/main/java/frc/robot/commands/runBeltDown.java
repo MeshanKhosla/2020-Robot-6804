@@ -8,19 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Indexer;
+import frc.robot.subsystems.Belt;
 
-public class beltStop extends CommandBase {
+public class runBeltDown extends CommandBase {
   /**
-   * Creates a new beltUp.
+   * Creates a new runBeltUp.
    */
 
-   private final Indexer m_indexerSubsystem;
-  public beltStop(Indexer indexerSubsystem) {
-    // Use addRequirements() here to declare subsystem dependencies.
-    m_indexerSubsystem = indexerSubsystem;
-    addRequirements(m_indexerSubsystem);
-    
+  private final Belt m_beltSubsystem;
+
+  public runBeltDown(Belt beltSubsystem) {
+    m_beltSubsystem = beltSubsystem;
+    addRequirements(m_beltSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -31,7 +30,8 @@ public class beltStop extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_indexerSubsystem.runAngledBelt(0);
+    m_beltSubsystem.runBelt(-1);
+    
   }
 
   // Called once the command ends or is interrupted.
