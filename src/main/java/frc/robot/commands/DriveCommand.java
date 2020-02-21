@@ -7,7 +7,12 @@
 
 package frc.robot.commands;
 
+import com.revrobotics.ColorSensorV3;
+
+import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 
@@ -32,7 +37,9 @@ public class DriveCommand extends CommandBase {
 
   //  Deadband
    private final double deadband = .05;
-
+  // Color sensor
+  private final I2C.Port i2cPort = I2C.Port.kOnboard;
+  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
   public DriveCommand(Drivetrain driveTrain, Joystick driverControllerOne) {
     // Use addRequirements() here to declare s
@@ -51,6 +58,11 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
+    Color detectedColor = m_colorSensor.getColor();
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
+    
     // Thrustmaster
     // if(Math.abs(-ppStickOne.getRawAxis(1)) <= deadband) {
     //   forwardSpeed = 0;

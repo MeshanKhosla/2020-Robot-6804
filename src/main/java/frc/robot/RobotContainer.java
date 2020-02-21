@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Shoot;
+import frc.robot.commands.hexagonAdjustDrivetrain;
 import frc.robot.commands.intakeIn;
 import frc.robot.commands.intakeReverse;
 import frc.robot.commands.intakeStop;
@@ -24,6 +25,7 @@ import frc.robot.commands.stopBelt;
 import frc.robot.subsystems.Belt;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 
 
@@ -33,6 +35,7 @@ public class RobotContainer {
   private final Intake intakeSubsystem = new Intake();
   private final Shooter shooterSubsystem = new Shooter();
   private final Belt beltSubsystem = new Belt();
+  private final Limelight limelightSubsystem = new Limelight();
   // Joysticks
   private final Joystick upDownController = new Joystick(1);
   private final Joystick ps4Controller = new Joystick(5);
@@ -75,6 +78,7 @@ public class RobotContainer {
   private final JoystickButton beltUpButton = new JoystickButton(upDownController, 8);
   private final JoystickButton beltDownButton = new JoystickButton(upDownController, 9);
   private final JoystickButton beltStopButton = new JoystickButton(upDownController, 10);
+  private final JoystickButton limelightAdjustButton = new JoystickButton(upDownController, 1);
 
   
   private void configureButtonBindings() 
@@ -95,6 +99,9 @@ public class RobotContainer {
     beltUpButton.whenHeld(new runBeltUp(beltSubsystem));
     beltDownButton.whenHeld(new runBeltDown(beltSubsystem));
     beltStopButton.whenPressed(new stopBelt(beltSubsystem));
+
+    // Limelight
+    //limelightAdjustButton.whenHeld(new hexagonAdjustDrivetrain(driveSubsystem, limelightSubsystem));
   }
 
 

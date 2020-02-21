@@ -3,8 +3,8 @@ import org.gradle.internal.os.OperatingSystem
 pluginManagement {
     repositories {
 
-        
-
+        // Pixy
+          maven { url 'https://nexus.otake.pw/repository/maven-public/' }
 
         mavenLocal()
         gradlePluginPortal()

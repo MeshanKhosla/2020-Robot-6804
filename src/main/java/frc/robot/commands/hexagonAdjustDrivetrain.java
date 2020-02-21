@@ -56,6 +56,7 @@ public class hexagonAdjustDrivetrain extends CommandBase {
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_Limelight.setPipeline(1);
 
     //initialize the hexagonAdjustDrivetrain
     m_steeringKP =  SmartDashboard.getNumber("steering KP", 0.0);
@@ -65,6 +66,8 @@ public class hexagonAdjustDrivetrain extends CommandBase {
 
     SmartDashboard.putNumber("left", 10000);
     SmartDashboard.putNumber("right", 10000);
+
+    
 
    
   }
@@ -77,7 +80,7 @@ public class hexagonAdjustDrivetrain extends CommandBase {
     //smart dashboard values
     double right = m_Limelight.getXOffset()*m_steeringKP;
     double left = (m_targetArea - m_Limelight.getArea()) * m_driveKP;
-    SmartDashboard.putNumber("targt area", m_Limelight.getArea());
+    SmartDashboard.putNumber("target area", m_Limelight.getArea());
 
 
 
@@ -101,7 +104,7 @@ public class hexagonAdjustDrivetrain extends CommandBase {
     }
 
 
-    m_Drivetrain.teleop_Drive_tank(left,right);
+    //m_Drivetrain.teleop_Drive_tank(left,right);
 
   }
   
