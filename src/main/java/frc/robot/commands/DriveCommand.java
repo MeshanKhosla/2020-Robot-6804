@@ -22,7 +22,16 @@ public class DriveCommand extends CommandBase {
    private final Drivetrain m_Drivetrain;
    private final Joystick ppStickOne;
    
+  //  Arcade drive
    private double forwardSpeed;
+   private double turningSpeed;
+
+  //  Tank drive
+   private double leftSpeed;
+   private double rightSpeed;
+
+  //  Deadband
+   private final double deadband = .05;
 
 
   public DriveCommand(Drivetrain driveTrain, Joystick driverControllerOne) {
@@ -42,12 +51,35 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    
-    if(Math.abs(-ppStickOne.getRawAxis(1)) > .05) {
-      forwardSpeed = -ppStickOne.getRawAxis(1);
+    // Thrustmaster
+    // if(Math.abs(-ppStickOne.getRawAxis(1)) <= deadband) {
+    //   forwardSpeed = 0;
+    // } else {
+    //   forwardSpeed = -ppStickOne.getRawAxis(1);
+    // }
+
+    // if(Math.abs(ppStickOne.getRawAxis(2)) <= deadband) {
+    //   turningSpeed = 0;
+    // } else {
+    //   turningSpeed = ppStickOne.getRawAxis(2);
+    // } 
+    // m_Drivetrain.teleop_Drive_arcade(forwardSpeed, turningSpeed);
+
+    // PS4 Controller  
+    // left deadband
+    if(Math.abs(-ppStickOne.getRawAxis(1)) <= deadband) {
+      leftSpeed = 0;
+    } else {
+      leftSpeed = -ppStickOne.getRawAxis(1);
+    }
+    // Right deadband
+    if(Math.abs(-ppStickOne.getRawAxis(5)) <= deadband) {
+      rightSpeed = 0;
+    } else {
+      rightSpeed = -ppStickOne.getRawAxis(5);
     }
 
-    m_Drivetrain.teleop_Drive(forwardSpeed, ppStickOne.getRawAxis(2));
+    m_Drivetrain.teleop_Drive_tank(leftSpeed, rightSpeed);
 
   }
 

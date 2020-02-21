@@ -30,7 +30,7 @@ public class runBeltUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_beltSubsystem.runBelt(1);
+    m_beltSubsystem.runBelt(.25);
     
   }
 

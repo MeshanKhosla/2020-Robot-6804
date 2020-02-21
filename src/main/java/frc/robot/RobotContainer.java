@@ -8,10 +8,14 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.intakeIn;
+import frc.robot.commands.intakeReverse;
 import frc.robot.commands.intakeStop;
 import frc.robot.commands.runBeltDown;
 import frc.robot.commands.runBeltUp;
@@ -31,51 +35,41 @@ public class RobotContainer {
   private final Belt beltSubsystem = new Belt();
   // Joysticks
   private final Joystick upDownController = new Joystick(1);
+  private final Joystick ps4Controller = new Joystick(5);
 
 // Drive command
-  private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, upDownController);
-  
-
-
-  //sendable choooser 
-  //sends options to either smartdashboard/shuffleboard for autonomous commands 
-
-
-  
-  
-
-
-
+// Thrustmaster
+  //private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, upDownController);
+  private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, ps4Controller);
 
   public RobotContainer() 
   {
     // Configure the button bindings
     configureButtonBindings();  
 
-    //sendable chooser
-    // chooser = new SendableChooser<Command>();
-    // chooser.setDefaultOption("Stop Shooter", stopShooterCommand);
-    // chooser.addOption("Shoot", shootCommand );
+    // Auto options
+    addAutoOptions();
     
-    // SmartDashboard.putData("Autonomous Chooser", chooser);
-
-
-
   }
 
-
-
-  // public void publishToSmartDashboard(){
-  //   intakeSubsystem.publishToSmartDashboard();
-  //   shooterSubsystem.publishToSmartDashboard();
+  // Auto chooser
+  private SendableChooser<Command> autoChooser = new SendableChooser<Command>();
+  public void addAutoOptions() {
     
-  // }
+    autoChooser.setDefaultOption("Don't shoot", new shooterStop(shooterSubsystem));
+    autoChooser.addOption("Shoot", new Shoot(shooterSubsystem));
 
+    SmartDashboard.putData(autoChooser);
+  }
 
+  public Command getAutonomousCommand() {
+    return autoChooser.getSelected();
+  }
 
   // Joystick buttons
   private final JoystickButton intakeInButton = new JoystickButton(upDownController, 3);
   private final JoystickButton intakeStopButton = new JoystickButton(upDownController, 2);
+  private final JoystickButton intakeReverseButton = new JoystickButton(upDownController, 4);
   private final JoystickButton shooterRunButton = new JoystickButton(upDownController, 14);
   private final JoystickButton shooterStopButton = new JoystickButton(upDownController, 15);
   private final JoystickButton beltUpButton = new JoystickButton(upDownController, 8);
@@ -83,9 +77,6 @@ public class RobotContainer {
   private final JoystickButton beltStopButton = new JoystickButton(upDownController, 10);
 
   
-
-  
-
   private void configureButtonBindings() 
   {
     driveSubsystem.setDefaultCommand(driveCommand);
@@ -93,6 +84,7 @@ public class RobotContainer {
     // Intake
     intakeInButton.whenHeld(new intakeIn(intakeSubsystem));
     intakeStopButton.whenPressed(new intakeStop(intakeSubsystem));
+    intakeReverseButton.whenHeld(new intakeReverse(intakeSubsystem));
     
 
     // Shooter

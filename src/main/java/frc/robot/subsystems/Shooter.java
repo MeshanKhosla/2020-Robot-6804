@@ -20,41 +20,35 @@ public class Shooter extends SubsystemBase {
    *
    */ 
   
-  private WPI_TalonSRX leftFlyWheel;
-  private WPI_TalonSRX rightFlyWheel;
+  private static WPI_TalonSRX leftFlyWheel;
+  private static WPI_TalonSRX rightFlyWheel;
 
-  //  Speedcontrollers
- 
+  // Speedcontrollers
 
-    public Shooter() {
-      //  flywheels
-      leftFlyWheel = new WPI_TalonSRX(3); 
-      rightFlyWheel = new WPI_TalonSRX(0);
-    
+  public Shooter() {
+    // flywheels
+    leftFlyWheel = new WPI_TalonSRX(3);
+    rightFlyWheel = new WPI_TalonSRX(0);
+
     rightFlyWheel.setInverted(false);
     leftFlyWheel.setInverted(true);
-      
-  
-     
-    }
-  
-    // Getters
-    // Returns right flywheel
-    public WPI_TalonSRX getRightFlywheel() {
-      return rightFlyWheel;
-    }
-  
-  
-  
-    // Returns left flywheel
-    public WPI_TalonSRX getLeftFlywheel(){
-      return leftFlyWheel;
-    }
-     
-  
-    public void setShooterSpeed(double speed) {
-      rightFlyWheel.set(speed);
-      leftFlyWheel.set(speed);
+
+  }
+
+  // Getters
+  // Returns right flywheel
+  public WPI_TalonSRX getRightFlywheel() {
+    return rightFlyWheel;
+  }
+
+  // Returns left flywheel
+  public WPI_TalonSRX getLeftFlywheel() {
+    return leftFlyWheel;
+  }
+
+  public static void setShooterSpeed(double speed) {
+    rightFlyWheel.set(speed);
+    leftFlyWheel.set(speed);
     }
   
     @Override

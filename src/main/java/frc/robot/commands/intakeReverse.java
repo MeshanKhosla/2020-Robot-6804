@@ -8,18 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Belt;
+import frc.robot.subsystems.Intake;
 
-public class runBeltDown extends CommandBase {
+public class intakeReverse extends CommandBase {
   /**
-   * Creates a new runBeltUp.
+   * Creates a new intakeIn.
    */
 
-  private final Belt m_beltSubsystem;
+  private final Intake m_intakeSubsystem;
 
-  public runBeltDown(Belt beltSubsystem) {
-    m_beltSubsystem = beltSubsystem;
-    addRequirements(m_beltSubsystem);
+  public intakeReverse(Intake intakeSubsystem) {
+    m_intakeSubsystem = intakeSubsystem;
+    addRequirements(m_intakeSubsystem);
   }
 
   // Called when the command is initially scheduled.
@@ -30,8 +30,7 @@ public class runBeltDown extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_beltSubsystem.runBelt(-.25);
-    
+    m_intakeSubsystem.runIntake(.5);
   }
 
   // Called once the command ends or is interrupted.

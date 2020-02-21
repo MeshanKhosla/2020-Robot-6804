@@ -59,8 +59,12 @@ public DifferentialDrive getDrive() {
   return drive;
 }
 
-public void teleop_Drive(double fwd, double turn) {
+public void teleop_Drive_arcade(double fwd, double turn) {
   drive.arcadeDrive(fwd, turn);
+}
+
+public void teleop_Drive_tank(double left, double right) {
+  drive.tankDrive(left, right);
 }
 
   @Override

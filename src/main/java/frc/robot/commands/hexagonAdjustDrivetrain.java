@@ -101,7 +101,7 @@ public class hexagonAdjustDrivetrain extends CommandBase {
     }
 
 
-    m_Drivetrain.teleop_Drive(left,right);
+    m_Drivetrain.teleop_Drive_tank(left,right);
 
   }
   
@@ -109,7 +109,7 @@ public class hexagonAdjustDrivetrain extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Drivetrain.teleop_Drive(0,0);
+    m_Drivetrain.teleop_Drive_tank(0,0);
     
   }
 
