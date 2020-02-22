@@ -108,6 +108,9 @@ public class hexagonAdjustDrivetrain extends CommandBase {
 
   }
   
+  public void simpleAdjust() {
+    m_Drivetrain.teleop_Drive_tank(m_Limelight.getXOffset() * m_driveKP,-m_Limelight.getXOffset() * m_driveKP );
+  }
 
   // Called once the command ends or is interrupted.
   @Override

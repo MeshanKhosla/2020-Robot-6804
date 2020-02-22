@@ -44,6 +44,7 @@ public class RobotContainer {
 // Thrustmaster
   //private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, upDownController);
   private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, ps4Controller);
+  private final runBeltUp beltUpCommand = new runBeltUp(beltSubsystem);
 
   public RobotContainer() 
   {
@@ -75,8 +76,8 @@ public class RobotContainer {
   private final JoystickButton intakeReverseButton = new JoystickButton(upDownController, 4);
   private final JoystickButton shooterRunButton = new JoystickButton(upDownController, 14);
   private final JoystickButton shooterStopButton = new JoystickButton(upDownController, 15);
-  private final JoystickButton beltUpButton = new JoystickButton(upDownController, 8);
-  private final JoystickButton beltDownButton = new JoystickButton(upDownController, 9);
+  private final JoystickButton beltUpButton = new JoystickButton(upDownController, 9);
+  private final JoystickButton beltDownButton = new JoystickButton(upDownController, 8);
   private final JoystickButton beltStopButton = new JoystickButton(upDownController, 10);
   private final JoystickButton limelightAdjustButton = new JoystickButton(upDownController, 1);
 
@@ -84,6 +85,7 @@ public class RobotContainer {
   private void configureButtonBindings() 
   {
     driveSubsystem.setDefaultCommand(driveCommand);
+
 
     // Intake
     intakeInButton.whenHeld(new intakeIn(intakeSubsystem));
@@ -96,9 +98,10 @@ public class RobotContainer {
     shooterStopButton.whenPressed(new shooterStop(shooterSubsystem));
 
     // Belt 
-    beltUpButton.whenHeld(new runBeltUp(beltSubsystem));
-    beltDownButton.whenHeld(new runBeltDown(beltSubsystem));
-    beltStopButton.whenPressed(new stopBelt(beltSubsystem));
+    beltSubsystem.setDefaultCommand(beltUpCommand);
+    //beltUpButton.whenHeld(new runBeltUp(beltSubsystem));
+    //beltDownButton.whenHeld(new runBeltDown(beltSubsystem));
+    //beltStopButton.whenPressed(new stopBelt(beltSubsystem));
 
     // Limelight
     //limelightAdjustButton.whenHeld(new hexagonAdjustDrivetrain(driveSubsystem, limelightSubsystem));
