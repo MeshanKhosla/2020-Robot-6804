@@ -28,7 +28,7 @@ public class Drivetrain extends SubsystemBase {
 
 
   
-  private DifferentialDrive drive; 
+  public DifferentialDrive drive; 
 
 
 

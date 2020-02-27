@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Limelight;
 
-public class hexagonAdjustDrivetrain extends CommandBase {
+public class hexagonAdjustYValue extends CommandBase {
   /**
    * Creates a new hexagonAdjustDrivetrain.
    * 
@@ -37,12 +37,12 @@ public class hexagonAdjustDrivetrain extends CommandBase {
    private double hexagonMotorSpeed;
 
 
-  public hexagonAdjustDrivetrain(Drivetrain driveTrain, Limelight limelight) {
+  public hexagonAdjustYValue(Drivetrain driveTrain, Limelight limelight) {
     // Use addRequirements() here to declare subsystem dependencies.
 
    m_Drivetrain = driveTrain; 
    m_Limelight = limelight; 
-   limelightPID = new PIDController(0.2,0.005,0.015);
+   limelightPID = new PIDController(0.25,0,0);
 
 
 
@@ -111,9 +111,9 @@ public class hexagonAdjustDrivetrain extends CommandBase {
 
     //m_Drivetrain.teleop_Drive_tank(left,right);
 
-    hexagonMotorSpeed = limelightPID.calculate(m_Limelight.getXOffset(), hexagonDesired);
+    hexagonMotorSpeed = limelightPID.calculate(m_Limelight.getYOffset(), hexagonDesired);
     limelightPID.setTolerance(1);
-    m_Drivetrain.teleop_Drive_arcade(0, -hexagonMotorSpeed);
+    m_Drivetrain.teleop_Drive_arcade(hexagonMotorSpeed, 0);
     // m_Drivetrain.teleop_Drive_tank(hexagonMotorSpeed, -hexagonMotorSpeed);
 
   }

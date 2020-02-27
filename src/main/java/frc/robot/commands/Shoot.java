@@ -38,9 +38,10 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterSubsystem.setShooterSpeed(.75);
+    m_shooterSubsystem.setShooterSpeed(.6);
 
   }
+  //fkjkajjitajwkjfowiaj4yiwjIOfejiwojatijioji4yojeiaojifogjreijioajryjejgaiojeoijirgjiaejyjgjnnkNDvjsdjv
 
   // Called once the command ends or is interrupted.
   @Override
@@ -51,5 +52,6 @@ public class Shoot extends CommandBase {
   @Override
   public boolean isFinished() {
     return false;
+    
   }
 }

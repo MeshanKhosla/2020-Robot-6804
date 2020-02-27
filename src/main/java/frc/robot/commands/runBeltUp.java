@@ -46,34 +46,34 @@ public class runBeltUp extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    pixy.getCCC().getBlocks(false, Pixy2CCC.CCC_SIG1, 1);
-    ArrayList<Block> blocks = pixy.getCCC().getBlocks();
+     pixy.getCCC().getBlocks(false, Pixy2CCC.CCC_SIG1, 1);
+     ArrayList<Block> blocks = pixy.getCCC().getBlocks();
 
 
-    if(blocks.size() > 0) {
-      double xcoord = blocks.get(0).getX();
-      double ycoord = blocks.get(0).getY();
-      String data = blocks.get(0).toString();
+     if(blocks.size() > 0) {
+       double xcoord = blocks.get(0).getX();
+       double ycoord = blocks.get(0).getY();
+       String data = blocks.get(0).toString();
 
-      SmartDashboard.putBoolean("Belt Pixy detect ball", true);
-      // SmartDashboard.putNumber("X coord", xcoord);
-      // SmartDashboard.putNumber("Y coord", ycoord);
-      SmartDashboard.putString("Data", data);
-      SmartDashboard.putNumber("Belt Pixy Size", blocks.size());
+       SmartDashboard.putBoolean("Belt Pixy detect ball", true);
+        SmartDashboard.putNumber("X coord", xcoord);
+        SmartDashboard.putNumber("Y coord", ycoord);
+       SmartDashboard.putString("Data", data);
+       SmartDashboard.putNumber("Belt Pixy Size", blocks.size());
 
 
-      // Run speed
-      m_beltSubsystem.runBelt(-.25);
+    //   // Run speed
+     m_beltSubsystem.runBelt(.25);
 
-    } else {
-      SmartDashboard.putBoolean("Belt Pixy detect ball", false);
-      SmartDashboard.putNumber("Belt Pixy Size", blocks.size());
-      m_beltSubsystem.runBelt(0);
-    }
+     } else {
+       SmartDashboard.putBoolean("Belt Pixy detect ball", false);
+       SmartDashboard.putNumber("Belt Pixy Size", blocks.size());
+       m_beltSubsystem.runBelt(0);
+     }
     
 
 
-    //m_beltSubsystem.runBelt(.25);
+  //  m_beltSubsystem.runBelt(.25);
 
 
     

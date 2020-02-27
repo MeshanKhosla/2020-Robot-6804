@@ -12,9 +12,11 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutoTrackBall;
 import frc.robot.commands.DriveCommand;
 import frc.robot.commands.Shoot;
 import frc.robot.commands.hexagonAdjustDrivetrain;
+import frc.robot.commands.hexagonAdjustYValue;
 import frc.robot.commands.intakeIn;
 import frc.robot.commands.intakeReverse;
 import frc.robot.commands.intakeStop;
@@ -80,6 +82,8 @@ public class RobotContainer {
   private final JoystickButton beltDownButton = new JoystickButton(upDownController, 8);
   private final JoystickButton beltStopButton = new JoystickButton(upDownController, 10);
   private final JoystickButton limelightAdjustButton = new JoystickButton(upDownController, 1);
+  private final JoystickButton limelightAdjustYValueButton = new JoystickButton(upDownController, 5);
+
 
   
   private void configureButtonBindings() 
@@ -91,6 +95,8 @@ public class RobotContainer {
     intakeInButton.whenHeld(new intakeIn(intakeSubsystem));
     intakeStopButton.whenPressed(new intakeStop(intakeSubsystem));
     intakeReverseButton.whenHeld(new intakeReverse(intakeSubsystem));
+
+    // limelightAdjustButton.whenHeld(new AutoTrackBall(intakeSubsystem, driveSubsystem));
     
 
     // Shooter
@@ -99,12 +105,13 @@ public class RobotContainer {
 
     // Belt 
     beltSubsystem.setDefaultCommand(beltUpCommand);
-    //beltUpButton.whenHeld(new runBeltUp(beltSubsystem));
-    //beltDownButton.whenHeld(new runBeltDown(beltSubsystem));
-    //beltStopButton.whenPressed(new stopBelt(beltSubsystem));
+    beltUpButton.whenHeld(new runBeltUp(beltSubsystem));
+    beltDownButton.whenHeld(new runBeltDown(beltSubsystem));
+    beltStopButton.whenPressed(new stopBelt(beltSubsystem));
 
     // Limelight
-    //limelightAdjustButton.whenHeld(new hexagonAdjustDrivetrain(driveSubsystem, limelightSubsystem));
+    limelightAdjustButton.whenHeld(new hexagonAdjustDrivetrain(driveSubsystem, limelightSubsystem));
+    limelightAdjustYValueButton.whenHeld(new hexagonAdjustYValue(driveSubsystem, limelightSubsystem));
   }
 
 
