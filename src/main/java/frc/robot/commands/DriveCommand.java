@@ -35,11 +35,9 @@ public class DriveCommand extends CommandBase {
    private double leftSpeed;
    private double rightSpeed;
 
-  //  Deadband
-   private final double deadband = .05;
   // Color sensor
-  private final I2C.Port i2cPort = I2C.Port.kOnboard;
-  private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
+  // private final I2C.Port i2cPort = I2C.Port.kOnboard;
+  // private final ColorSensorV3 m_colorSensor = new ColorSensorV3(i2cPort);
 
   public DriveCommand(Drivetrain driveTrain, Joystick driverControllerOne) {
     // Use addRequirements() here to declare s
@@ -58,40 +56,16 @@ public class DriveCommand extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    Color detectedColor = m_colorSensor.getColor();
-    SmartDashboard.putNumber("Red", detectedColor.red);
-    SmartDashboard.putNumber("Green", detectedColor.green);
-    SmartDashboard.putNumber("Blue", detectedColor.blue);
     
-    // Thrustmaster
-    // if(Math.abs(-ppStickOne.getRawAxis(1)) <= deadband) {
-    //   forwardSpeed = 0;
-    // } else {
-    //   forwardSpeed = -ppStickOne.getRawAxis(1);
-    // }
-
-    // if(Math.abs(ppStickOne.getRawAxis(2)) <= deadband) {
-    //   turningSpeed = 0;
-    // } else {
-    //   turningSpeed = ppStickOne.getRawAxis(2);
-    // } 
-    // m_Drivetrain.teleop_Drive_arcade(forwardSpeed, turningSpeed);
-
     // PS4 Controller  
-    // left deadband
-    if(Math.abs(-ppStickOne.getRawAxis(1)) <= deadband) {
-      leftSpeed = 0;
-    } else {
-      leftSpeed = -ppStickOne.getRawAxis(1);
-    }
-    // Right deadband
-    if(Math.abs(-ppStickOne.getRawAxis(5)) <= deadband) {
-      rightSpeed = 0;
-    } else {
-      rightSpeed = -ppStickOne.getRawAxis(5);
-    }
+    // Tank drive
+    // m_Drivetrain.teleop_Drive_tank(ppStickOne);
 
-    m_Drivetrain.teleop_Drive_tank(leftSpeed, rightSpeed);
+    // Arcade drive
+    m_Drivetrain.teleop_Drive_arcade(ppStickOne);
+
+    // GTA Drive
+    // m_Drivetrain.GTADrive(ppStickOne);
 
   }
 

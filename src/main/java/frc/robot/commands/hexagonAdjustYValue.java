@@ -113,7 +113,7 @@ public class hexagonAdjustYValue extends CommandBase {
 
     hexagonMotorSpeed = limelightPID.calculate(m_Limelight.getYOffset(), hexagonDesired);
     limelightPID.setTolerance(1);
-    m_Drivetrain.teleop_Drive_arcade(hexagonMotorSpeed, 0);
+    m_Drivetrain.regularArcadeDrive(hexagonMotorSpeed, 0);
     // m_Drivetrain.teleop_Drive_tank(hexagonMotorSpeed, -hexagonMotorSpeed);
 
   }
@@ -125,7 +125,7 @@ public class hexagonAdjustYValue extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_Drivetrain.teleop_Drive_tank(0,0);
+    m_Drivetrain.regularTankDrive(0,0);
     
   }
 

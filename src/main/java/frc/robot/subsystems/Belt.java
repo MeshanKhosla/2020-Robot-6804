@@ -18,7 +18,7 @@ public class Belt extends SubsystemBase {
 
   private WPI_VictorSPX beltMotor;
   public Belt() {
-    beltMotor = new WPI_VictorSPX(6);
+    beltMotor = new WPI_VictorSPX(8);
   }
 
 

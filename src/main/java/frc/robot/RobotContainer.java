@@ -22,6 +22,7 @@ import frc.robot.commands.intakeReverse;
 import frc.robot.commands.intakeStop;
 import frc.robot.commands.runBeltDown;
 import frc.robot.commands.runBeltUp;
+import frc.robot.commands.runBeltUpWithButton;
 import frc.robot.commands.shooterStop;
 import frc.robot.commands.stopBelt;
 import frc.robot.subsystems.Belt;
@@ -43,8 +44,6 @@ public class RobotContainer {
   private final Joystick ps4Controller = new Joystick(5);
 
 // Drive command
-// Thrustmaster
-  //private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, upDownController);
   private final DriveCommand driveCommand = new DriveCommand(driveSubsystem, ps4Controller);
   private final runBeltUp beltUpCommand = new runBeltUp(beltSubsystem);
 
@@ -78,12 +77,14 @@ public class RobotContainer {
   private final JoystickButton intakeReverseButton = new JoystickButton(upDownController, 4);
   private final JoystickButton shooterRunButton = new JoystickButton(upDownController, 14);
   private final JoystickButton shooterStopButton = new JoystickButton(upDownController, 15);
-  private final JoystickButton beltUpButton = new JoystickButton(upDownController, 9);
-  private final JoystickButton beltDownButton = new JoystickButton(upDownController, 8);
+  private final JoystickButton beltUpAutoButton = new JoystickButton(upDownController, 7);
+  private final JoystickButton beltUpButton = new JoystickButton(upDownController, 8);
+  private final JoystickButton beltDownButton = new JoystickButton(upDownController, 9);
   private final JoystickButton beltStopButton = new JoystickButton(upDownController, 10);
   private final JoystickButton limelightAdjustButton = new JoystickButton(upDownController, 1);
   private final JoystickButton limelightAdjustYValueButton = new JoystickButton(upDownController, 5);
-
+  private final JoystickButton ballTrackButton = new JoystickButton(ps4Controller, 2);
+  
 
   
   private void configureButtonBindings() 
@@ -92,26 +93,27 @@ public class RobotContainer {
 
 
     // Intake
-    intakeInButton.whenHeld(new intakeIn(intakeSubsystem));
+    intakeInButton.whenPressed(new intakeIn(intakeSubsystem));
     intakeStopButton.whenPressed(new intakeStop(intakeSubsystem));
-    intakeReverseButton.whenHeld(new intakeReverse(intakeSubsystem));
+    intakeReverseButton.whenPressed(new intakeReverse(intakeSubsystem));
 
-    // limelightAdjustButton.whenHeld(new AutoTrackBall(intakeSubsystem, driveSubsystem));
+    ballTrackButton.whenHeld(new AutoTrackBall(intakeSubsystem, driveSubsystem));
     
 
     // Shooter
-    shooterRunButton.whenHeld(new Shoot(shooterSubsystem));
+    shooterRunButton.whenPressed(new Shoot(shooterSubsystem));
     shooterStopButton.whenPressed(new shooterStop(shooterSubsystem));
 
     // Belt 
     beltSubsystem.setDefaultCommand(beltUpCommand);
-    beltUpButton.whenHeld(new runBeltUp(beltSubsystem));
+    //beltUpAutoButton.whenPressed(new runBeltUp(beltSubsystem));
+    beltUpButton.whenHeld(new runBeltUpWithButton(beltSubsystem));
     beltDownButton.whenHeld(new runBeltDown(beltSubsystem));
     beltStopButton.whenPressed(new stopBelt(beltSubsystem));
 
     // Limelight
-    limelightAdjustButton.whenHeld(new hexagonAdjustDrivetrain(driveSubsystem, limelightSubsystem));
-    limelightAdjustYValueButton.whenHeld(new hexagonAdjustYValue(driveSubsystem, limelightSubsystem));
+    // limelightAdjustButton.whenHeld(new hexagonAdjustDrivetrain(driveSubsystem, limelightSubsystem));
+    // limelightAdjustYValueButton.whenHeld(new hexagonAdjustYValue(driveSubsystem, limelightSubsystem));
   }
 
 
