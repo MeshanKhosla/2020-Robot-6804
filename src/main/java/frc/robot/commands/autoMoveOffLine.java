@@ -7,30 +7,43 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Drivetrain;
 
-public class intakeIn extends CommandBase {
+public class autoMoveOffLine extends CommandBase {
   /**
-   * Creates a new intakeIn.
+   * Creates a new autoMoveOffLine.
    */
 
-  private final Intake m_intakeSubsystem;
+  private Drivetrain m_drivetrain;
+  private Timer moveTimer;
+  
+  public autoMoveOffLine(Drivetrain drivetrain) {
+    m_drivetrain = drivetrain; 
 
-  public intakeIn(Intake intakeSubsystem) {
-    m_intakeSubsystem = intakeSubsystem;
-    addRequirements(m_intakeSubsystem);
+    addRequirements(m_drivetrain);
+    moveTimer = new Timer();
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    moveTimer.start();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intakeSubsystem.runIntake(-.75);
+    if(moveTimer.get() < 1) {
+      m_drivetrain.regularArcadeDrive(-.6, 0);
+    }
+    if(moveTimer.get() > 1) {
+      m_drivetrain.regularArcadeDrive(0, 0);
+      
+    }
+
+    
   }
 
   // Called once the command ends or is interrupted.

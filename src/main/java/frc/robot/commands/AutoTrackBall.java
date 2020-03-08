@@ -28,35 +28,38 @@ public class AutoTrackBall extends CommandBase {
 
   // Use addRequirements() here to declare subsystem dependencies.
 
-  private final Intake m_ballTracker;
-  private final Drivetrain m_driveTrain;
-  private final PIDController pixyPID; 
+  private final Intake m_intake;
+  private Drivetrain m_driveTrain;
+  private PIDController pixyPID; 
   private double trackSpeed;
-  private final double desired = 165;
+  private final double desired = 150;
+  private Pixy2 ballTracker;
 
 
-  public AutoTrackBall(Intake ballTracker, Drivetrain driveTrain) {
-    m_ballTracker = ballTracker;
+  public AutoTrackBall(Intake intake, Drivetrain driveTrain) {
+    m_intake = intake;
     m_driveTrain = driveTrain;
 
-    pixyPID = new PIDController(0.1, 0, 0);
 
 
-    addRequirements(m_ballTracker, m_driveTrain);
+
+    addRequirements(m_intake, m_driveTrain);
+    pixyPID = new PIDController(0.02,0.001,0.00001);
+    ballTracker = Pixy2.createInstance(Pixy2.LinkType.I2C);
+    ballTracker.init(0);
+    
 
   }
 
-  private Pixy2 ballTracker;
-  private boolean isCamera = false;
-  private int state = -1;
+
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    
  
-    ballTracker = Pixy2.createInstance(Pixy2.LinkType.UART);
-    ballTracker.init(0);
-    System.out.println(ballTracker.init(0));
+    
+    //System.out.println(ballTracker.init(0));
 
   }
 
@@ -64,34 +67,35 @@ public class AutoTrackBall extends CommandBase {
   @Override
   public void execute() {
     
-    ArrayList<Block> blocks = ballTracker.getCCC().getBlocks();
-    if (blocks.size() > 0) {
-      ballTracker.getCCC().getBlocks(false, Pixy2CCC.CCC_SIG1, 1);
-
-    
-    double ballTrackerXCoord = blocks.get(0).getX();
-    double ballTrackeryCoord = blocks.get(0).getY();
-    String ballTrackerdata = blocks.get(0).toString();
+    ArrayList<Block> intakeblocks = ballTracker.getCCC().getBlocks();
+    ballTracker.getCCC().getBlocks(false, Pixy2CCC.CCC_SIG1, 1);
+    if (intakeblocks.size() > 0) {
+    SmartDashboard.putBoolean("IntakeBallPresent", true);
+    double ballTrackerXCoord = intakeblocks.get(0).getX();
+    double ballTrackeryCoord = intakeblocks.get(0).getY();
+    String ballTrackerdata = intakeblocks.get(0).toString();
 
       SmartDashboard.putNumber("Intake xcoord", ballTrackerXCoord);
       SmartDashboard.putNumber("Intake ycoord", ballTrackeryCoord);
       SmartDashboard.putString("Intake Data", ballTrackerdata);
-      SmartDashboard.putNumber("Intake Pixy Size", blocks.size());
+      SmartDashboard.putNumber("Intake Pixy Size", intakeblocks.size());System.out.println("Intake ball present " + false);
+      //System.out.println("Intake Pixy Size " + intakeblocks.size());
+
       // Robot oscilates to direction of ball for intake
       trackSpeed = pixyPID.calculate(ballTrackerXCoord, desired);
-      pixyPID.setTolerance(1);
-      SmartDashboard.putBoolean("IntakeBallPresent", true);
+      pixyPID.setTolerance(5);
+      
 
-      m_driveTrain.regularArcadeDrive(0, trackSpeed);
+      m_driveTrain.regularArcadeDrive(0, -trackSpeed);
       }
         
      else {
         SmartDashboard.putBoolean("IntakeBallPresent", false);
 
         m_driveTrain.regularArcadeDrive(0, 0);
-        
-        //System.out.println("Intake ball present " + false);
-        //System.out.println("Intake Pixy Size " + blocks.size());
+       
+        // System.out.println("Intake ball present " + false);
+        // System.out.println("Intake Pixy Size " + intakeblocks.size());
       }
 
 

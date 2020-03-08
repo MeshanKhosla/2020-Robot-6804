@@ -18,6 +18,7 @@ public class intakeStop extends CommandBase {
   private final Intake m_intakeSubsystem;
 
   public intakeStop(Intake intakeSubsystem) {
+    
     m_intakeSubsystem = intakeSubsystem;
     addRequirements(m_intakeSubsystem);
   }

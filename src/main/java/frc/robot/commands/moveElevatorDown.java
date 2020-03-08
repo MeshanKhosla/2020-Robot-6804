@@ -8,18 +8,19 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Intake;
+import frc.robot.subsystems.Elevator;
 
-public class intakeIn extends CommandBase {
+public class moveElevatorDown extends CommandBase {
   /**
-   * Creates a new intakeIn.
+   * Creates a new moveElevatorUp.
    */
+  private Elevator m_elevatorSubsystem;
 
-  private final Intake m_intakeSubsystem;
-
-  public intakeIn(Intake intakeSubsystem) {
-    m_intakeSubsystem = intakeSubsystem;
-    addRequirements(m_intakeSubsystem);
+  public moveElevatorDown(Elevator elevatorSubsystem) {
+    // Use addRequirements() here to declare subsystem dependencies.
+    m_elevatorSubsystem = elevatorSubsystem;
+    addRequirements(elevatorSubsystem);
+    
   }
 
   // Called when the command is initially scheduled.
@@ -30,7 +31,9 @@ public class intakeIn extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_intakeSubsystem.runIntake(-.75);
+    // circle
+    // top spools R1 cc
+    m_elevatorSubsystem.getElevatorDownMotor().set(-.9);
   }
 
   // Called once the command ends or is interrupted.

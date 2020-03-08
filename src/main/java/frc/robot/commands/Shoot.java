@@ -41,7 +41,7 @@ public class Shoot extends CommandBase {
     m_shooterSubsystem.setShooterSpeed(.6);
 
   }
-  //fkjkajjitajwkjfowiaj4yiwjIOfejiwojatijioji4yojeiaojifogjreijioajryjejgaiojeoijirgjiaejyjgjnnkNDvjsdjv
+
 
   // Called once the command ends or is interrupted.
   @Override

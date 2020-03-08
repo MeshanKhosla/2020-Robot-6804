@@ -8,6 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,26 +19,30 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Elevator extends SubsystemBase {
 
-  private static WPI_TalonSRX ElevatorMotor;
-  private int MotorOrigin;
+  private WPI_VictorSPX elevatorUpMotor;
+  private WPI_VictorSPX elevatorDownMotor;
   // Speedcontrollers
 
   public Elevator() {
     // flywheels
-    ElevatorMotor = new WPI_TalonSRX(MotorOrigin);
-    ElevatorMotor.setInverted(true);
+    elevatorUpMotor = new WPI_VictorSPX(10);
+    elevatorDownMotor = new WPI_VictorSPX(9);
 
   }
 
   // Getters
-  // Returns Elevator
-  public WPI_TalonSRX GetElevatorMotor() {
-    return ElevatorMotor;
+  // Returns motor that moves elevator up
+  public WPI_VictorSPX getElevatorUpMotor() {
+    return elevatorUpMotor;
   }
-
-  public static void SetElevatorSpeed(Joystick Control) {
-    ElevatorMotor.set(Control.getRawAxis(3));
-    }
+  // Returns motor that moves elevator down
+  public WPI_VictorSPX getElevatorDownMotor() {
+    return elevatorDownMotor;
+  }
+  public void setElevatorSpeed(double upSpeed, double downSpeed) {
+    elevatorUpMotor.set(upSpeed);
+    elevatorDownMotor.set(downSpeed);
+  }
   
     @Override
     public void periodic() {
