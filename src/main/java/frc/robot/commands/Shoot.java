@@ -38,7 +38,7 @@ public class Shoot extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_shooterSubsystem.setShooterSpeed(.6);
+    m_shooterSubsystem.setShooterSpeed(.75);
 
   }
 

@@ -9,9 +9,13 @@ package frc.robot.subsystems;
 
 import java.util.ArrayList;
 
+import edu.wpi.cscore.HttpCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase {
@@ -23,6 +27,7 @@ public class Limelight extends SubsystemBase {
   private double tx,ty,ta,tv;
   private ArrayList <Double> m_targetList;
   private final int MAX_ENTRIES = 50;
+  private HttpCamera limelightFeed;
 
    
   public Limelight() {
@@ -30,7 +35,9 @@ public class Limelight extends SubsystemBase {
     table = NetworkTableInstance.getDefault().getTable("limelight");
     System.out.println("Limelight initialized");
     m_targetList = new ArrayList<Double>(MAX_ENTRIES);
-    
+    limelightFeed = new HttpCamera("Limelight feed", "http://10.68.4.64:5801//stream.mjpg");
+    CameraServer.getInstance().addCamera(limelightFeed);
+    Shuffleboard.getTab("Tab").add(limelightFeed);
 
     
   }
@@ -47,6 +54,8 @@ public class Limelight extends SubsystemBase {
     ta = table.getEntry("ta").getDouble(0);
     // Whether there's a target detected
     tv = table.getEntry("tv").getDouble(0);
+    SmartDashboard.putNumber("Limelight tx", tx);
+    SmartDashboard.putNumber("Limelight ty", ty);
 
 
     if (m_targetList.size() >= MAX_ENTRIES)

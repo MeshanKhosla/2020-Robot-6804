@@ -28,9 +28,9 @@ public class hexagonAdjustDrivetrain extends CommandBase {
 
    
 
-   private double m_steeringKP = 0.055;
-   private double m_targetArea = 2.1;
-   private double m_driveKP = 0.80; 
+  //  private double m_steeringKP = 0.055;
+  //  private double m_targetArea = 2.1;
+  //  private double m_driveKP = 0.80; 
    private final double hexagonDesired = 0;
    
 
@@ -42,7 +42,7 @@ public class hexagonAdjustDrivetrain extends CommandBase {
 
    m_Drivetrain = driveTrain; 
    m_Limelight = limelight; 
-   limelightPID = new PIDController(0.2,0.005,0.015);
+   limelightPID = new PIDController(0.1,0.001,0);
 
 
 
@@ -81,8 +81,6 @@ public class hexagonAdjustDrivetrain extends CommandBase {
   @Override
   public void execute() {
 
-
-    //smart dashboard values
     // double right = m_Limelight.getXOffset()*m_steeringKP;
     // double left = (m_targetArea - m_Limelight.getArea()) * m_driveKP;
     // SmartDashboard.putNumber("target area", m_Limelight.getArea());
@@ -109,12 +107,12 @@ public class hexagonAdjustDrivetrain extends CommandBase {
     // }
 
 
-    //m_Drivetrain.teleop_Drive_tank(left,right);
+    // m_Drivetrain.regularTankDrive(left,right);
 
     hexagonMotorSpeed = limelightPID.calculate(m_Limelight.getXOffset(), hexagonDesired);
-    limelightPID.setTolerance(1);
+    limelightPID.setTolerance(.5);
     m_Drivetrain.regularArcadeDrive(0, -hexagonMotorSpeed);
-    // m_Drivetrain.teleop_Drive_tank(hexagonMotorSpeed, -hexagonMotorSpeed);
+    //m_Drivetrain.teleop_Drive_tank(hexagonMotorSpeed, -hexagonMotorSpeed);
 
   }
   

@@ -9,42 +9,42 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Shooter;
 
-public class autoMoveOffLine extends CommandBase {
-  /**
-   * Creates a new autoMoveOffLine.
+public class autoRunShooter extends CommandBase {
+   /**
+   * Creates a new Shoot.
    */
-
-  private Drivetrain m_drivetrain;
-  private Timer moveTimer;
   
-  public autoMoveOffLine(Drivetrain drivetrain) {
-    m_drivetrain = drivetrain; 
+  private Timer shooterTimer;
+  
+  Shooter m_shooterSubsystem;
+  public autoRunShooter(Shooter shooterSubsystem) {
 
-    addRequirements(m_drivetrain);
-    moveTimer = new Timer();
+    m_shooterSubsystem = shooterSubsystem;
+
+    addRequirements(m_shooterSubsystem);
+    shooterTimer = new Timer();
+    
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
-    moveTimer.start();
+    
+    shooterTimer.start();
+
+
+
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if(moveTimer.get() < 2) {
-      m_drivetrain.regularArcadeDrive(.6, 0);
-    }
-    if(moveTimer.get() > 2) {
-      m_drivetrain.regularArcadeDrive(0, 0);
-      
-    }
+    m_shooterSubsystem.setShooterSpeed(.75);
 
-    
   }
+
 
   // Called once the command ends or is interrupted.
   @Override
@@ -54,7 +54,7 @@ public class autoMoveOffLine extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    // 2 more than timer speed
-    return moveTimer.get() > 4;
+    return shooterTimer.get() > 2;
+    
   }
 }

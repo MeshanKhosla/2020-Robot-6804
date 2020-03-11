@@ -78,7 +78,8 @@ public class AutoTrackBall extends CommandBase {
       SmartDashboard.putNumber("Intake xcoord", ballTrackerXCoord);
       SmartDashboard.putNumber("Intake ycoord", ballTrackeryCoord);
       SmartDashboard.putString("Intake Data", ballTrackerdata);
-      SmartDashboard.putNumber("Intake Pixy Size", intakeblocks.size());System.out.println("Intake ball present " + false);
+      SmartDashboard.putNumber("Intake Pixy Size", intakeblocks.size());
+      //System.out.println("Intake ball present " + false);
       //System.out.println("Intake Pixy Size " + intakeblocks.size());
 
       // Robot oscilates to direction of ball for intake
